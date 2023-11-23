@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react'
 
-function App() {
-  const [count, setCount] = useState(0)
+import { 
+    ChatEngine, 
+    ChatList, ChatCard, NewChatForm,
+    ChatFeed, ChatHeader, IceBreaker, MessageBubble, IsTyping, NewMessageForm,
+    ChatSettings, ChatSettingsTop, PeopleSettings, PhotosSettings, OptionsSettings
+} from 'react-chat-engine'
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+const TheSameChatUI = props => {
+    return (
+        <ChatEngine 
+            height='100vh'
+            projectID="ccfbb3d6-a798-4b87-87df-0adf22cd65fd" 
+            userName="DagimAsnake"
+            userSecret="1234" 
+            development={props.development} 
+            // Customize UI
+            renderChatList={(chatAppState) => <ChatList {...chatAppState} />}
+            renderChatCard={(chat, index) => <ChatCard key={`${index}`} chat={chat} />}
+            renderNewChatForm={(creds) => <NewChatForm creds={creds} />} 
+            renderChatFeed={(chatAppState) => <ChatFeed {...chatAppState} />}
+            renderChatHeader={(chat) => <ChatHeader />}
+            renderIceBreaker={(chat) => <IceBreaker />}
+            renderMessageBubble={(creds, chat, lastMessage, message, nextMessage) => <MessageBubble lastMessage={lastMessage} message={message} nextMessage={nextMessage} chat={chat} />}
+            renderIsTyping={(typers) => <IsTyping />}
+            renderNewMessageForm={(creds, chatID) => <NewMessageForm />}
+            renderChatSettings={(chatAppState) => <ChatSettings {...chatAppState} />}
+            renderChatSettingsTop={(creds, chat) => <ChatSettingsTop />}
+            renderPeopleSettings={(creds, chat) => <PeopleSettings />}
+            renderPhotosSettings={(chat) => <PhotosSettings />}
+            renderOptionsSettings={(creds, chat) => <OptionsSettings />}
+        />
+    )
 }
 
-export default App
+export default TheSameChatUI
